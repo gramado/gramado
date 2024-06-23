@@ -1,0 +1,14 @@
+
+box One 
+[
+    meta i_00(){ name("background-color");     content("green");  }
+    meta i_01(){ name("window-color");         content("white");  }
+    meta i_02(){ name("titlebar-color");       content("blue");   }
+    meta i_03(){ name("titlebar-text-color");  content("white");  }
+    meta i_04(){ name("titlebar-icon");        content("2");  }
+] 
+
+
+
+
+

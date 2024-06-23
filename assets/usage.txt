@@ -1,0 +1,34 @@
+
+    Usage
+
+On Linux:
+    $ ./gramcnf -o test1.cnf  --stats  
+    $ ./gramcnf -o theme1.cnf --stats  
+
+On Gramado:
+    $ #gramcnf -o test1.cnf  --stats  
+    $ #gramcnf -o theme1.cnf --stats  
+
+----------------------------------
+List of switches:
+  -a        ()
+  -b        ()
+  -s        ()
+  -v        (Print version message)
+  --stats   ()
+  --dumpo   (Dump output file)
+  --help    (Print help message)
+  --version (Print version message)
+
+----------------------------------
+Lê duas entradas e coloca numa estrutura.
+No fim teremos muitas estruturas.
+
+Podemos usar isso como arquivo de configuração
+no estilo xml / html-meta.
+
+meta meta1(){ name(".."); content(".."); }
+meta meta2(){ name(".."); content(".."); }
+
+
+
