@@ -206,8 +206,12 @@ static void debugShowStat(void)
     }
 
     // Open::
-    strcat(TmpString, "<html>\n");
+    strcat(TmpString, "<!DOCTYPE html>\n");
+    strcat(TmpString, "<html leng=\"en\">\n");
     strcat(TmpString, "<head>\n");
+    strcat(TmpString, "<meta charset=\"UTF-8\">\n");
+    strcat(TmpString, "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n");
+    strcat(TmpString, "<title>index.html</title>\n");
     strcat(TmpString, "<link href=\"gramado.css\" rel=\"stylesheet\" >\n");
     strcat(TmpString, "</head>\n");
     strcat(TmpString, "<body>\n");
@@ -231,8 +235,11 @@ static void debugShowStat(void)
             {
                 if (sizeof(metadata[i].content) < 1028)
                 {
-                    strcat(TmpString, "<header class=\"gramado-header\">");
+                    strcat(TmpString, "<br>\n");
+                    strcat(TmpString, "<header>\n");
+                    strcat(TmpString, "<div class=\"gramado-header\">\n");
                     strcat(TmpString, metadata[i].content);
+                    strcat(TmpString, "</div>\n");
                     strcat(TmpString, "</header>\n");
                 }
             }
@@ -242,8 +249,9 @@ static void debugShowStat(void)
             {
                 if (sizeof(metadata[i].content) < 1028)
                 {
+                    strcat(TmpString, "<br>\n");
                     strcat(TmpString, "<section>\n");
-                    strcat(TmpString, "<div class=\"gramado-container\">");
+                    strcat(TmpString, "<div class=\"gramado-container\">\n");
                     strcat(TmpString, metadata[i].content);
                     strcat(TmpString, "</div>\n");
                     strcat(TmpString, "</section>\n");
@@ -257,8 +265,11 @@ static void debugShowStat(void)
             {
                 if (sizeof(metadata[i].content) < 1028)
                 {
-                    strcat(TmpString, "<footer class=\"gramado-footer\">");
+                    strcat(TmpString, "<br>\n");
+                    strcat(TmpString, "<footer>\n");
+                    strcat(TmpString, "<div class=\"gramado-footer\">\n");
                     strcat(TmpString, metadata[i].content);
+                    strcat(TmpString, "</div>\n");
                     strcat(TmpString, "</footer>\n");
                 }
             }
