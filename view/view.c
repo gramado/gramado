@@ -82,6 +82,7 @@ static void debugShowStat2(void)
     strcat(TmpString, "<html leng=\"en\">\n");
     strcat(TmpString, "<head>\n");
     strcat(TmpString, "<meta charset=\"UTF-8\">\n");
+    strcat(TmpString,"<meta name=\"generator\" content=\"mt interpreter\">\n");
     strcat(TmpString, "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n");
     strcat(TmpString, "<title>index.html</title>\n");
     strcat(TmpString, "<link href=\"gramado.css\" rel=\"stylesheet\" >\n");
