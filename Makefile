@@ -1,16 +1,23 @@
 # Mount tabor for Linux
 # Usage:
 # $ ./mt -s THEME1.CNF --stats 
+# Created by Fred Nora.
 
 all:
+
+# Controller
 	gcc -c main.c     -o main.o
 	gcc -c globals.c  -o globals.o
+# View
+	gcc -c view/view.c     -o view.o
+# Model
 	gcc -c compiler.c -o compiler.o
 	gcc -c lexer.c    -o lexer.o
 	gcc -c parser.c   -o parser.o
 	gcc -c tree.c     -o tree.o
+
 # Link
-	gcc -Wall -o mt main.o globals.o compiler.o lexer.o parser.o tree.o 
+	gcc -Wall -o mt main.o globals.o view.o compiler.o lexer.o parser.o tree.o 
 
 # Build the final destination.
 	-mkdir build/
@@ -23,12 +30,10 @@ all:
 	-cp ./assets/Makefile              build/
 	rm *.o  
 
-	@echo "Got to build/ folder and type make";
+	@echo "Go to build/ folder and type make";
 clean:
 	-rm *.o  
 	-rm ./mt 
 	-rm -rf build
-
-
 
 
