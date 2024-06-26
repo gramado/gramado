@@ -5,9 +5,10 @@
 // Bom, como ainda não temos linguagem intermediária,
 // vamos transformar C em Assembly
 // lexer >> parser >> compiler
-// 2022 - Fred Nora
+// 2022 - Created by Fred Nora.
 
-#include "gramcnf.h"
+#include "../gramcnf.h"
+#include "compiler.h" 
 
 
 // Called by main().

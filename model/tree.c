@@ -1,12 +1,17 @@
 
 // tree.c 
-// bst - calculando expressões.
+// bst - calculando expressï¿½es.
+// Document created by Fred Nora.
+// Credits: Ported from www. I don't remember the author.
 
-#include "gramcnf.h"
+#include "../gramcnf.h"
+#include "tree.h" 
+#include "../model/lexer.h"
+
 
 // #importante
-// #expressão em ordem!
-// Os tokens serão colocados aqui como uma expressão em ordem.
+// #expressï¿½o em ordem!
+// Os tokens serï¿½o colocados aqui como uma expressï¿½o em ordem.
 int exp_buffer[32];
 int exp_offset=0;
 
@@ -82,13 +87,13 @@ static void inorder(struct node *root)
 
 // # same as 'inorder()'
 // Em ordem  a+b.
-// Desce até o último pela esquerda, 
-// não havendo esquerda vai pra direita.
-// Visita a esquerda do próximo
-// só retorna no último então printf funciona 
-// mostrando o conteúdo do último 
-// ai visita a direita do último e desce pela esquerda,
-// não havendo esquerda vai pra direita.
+// Desce atï¿½ o ï¿½ltimo pela esquerda, 
+// nï¿½o havendo esquerda vai pra direita.
+// Visita a esquerda do prï¿½ximo
+// sï¿½ retorna no ï¿½ltimo entï¿½o printf funciona 
+// mostrando o conteï¿½do do ï¿½ltimo 
+// ai visita a direita do ï¿½ltimo e desce pela esquerda,
+// nï¿½o havendo esquerda vai pra direita.
 static void exibirEmOrdem (struct node *root)
 {
     if ( (void*) root != NULL )
@@ -100,10 +105,10 @@ static void exibirEmOrdem (struct node *root)
 }
 
 
-// Pré-ordem +ab.
-// Imprime o conteúdo
-// desce até o último pela esquerda
-// visita a direita e desce até o último pela esquerda.
+// Prï¿½-ordem +ab.
+// Imprime o conteï¿½do
+// desce atï¿½ o ï¿½ltimo pela esquerda
+// visita a direita e desce atï¿½ o ï¿½ltimo pela esquerda.
 static void exibirPreOrdem(struct node *root)
 {
     if ((void*)root != NULL)
@@ -114,10 +119,10 @@ static void exibirPreOrdem(struct node *root)
     }
 }
 
-// Pós-ordem ab+.
+// Pï¿½s-ordem ab+.
 // #importante
-// Exibe em níveis. de baixo para cima.
-// desce até o ultimo pela esquerda
+// Exibe em nï¿½veis. de baixo para cima.
+// desce atï¿½ o ultimo pela esquerda
 // visita o da direita e imprime;
 static void exibirPosOrdem (struct node *root)
 {
@@ -136,8 +141,8 @@ static void exibirPosOrdem (struct node *root)
         }
 
         // #importante
-        // Colocar num buffer pra usar no cálculo 
-        // isso simula uma digitação
+        // Colocar num buffer pra usar no cï¿½lculo 
+        // isso simula uma digitaï¿½ï¿½o
 
         POS_BUFFER[buffer_offset] = 
             (int) (root->key + '0');
@@ -174,8 +179,8 @@ static struct node *insert( struct node* node, int key )
 /*
  bst_main:
  Called by tree_eval();
- Inicializa árvore binária.
- Ela pega uma expressão que está em um buffer e 
+ Inicializa ï¿½rvore binï¿½ria.
+ Ela pega uma expressï¿½o que estï¿½ em um buffer e 
  prepara o buffer POS_BUFFER para eval usar.
  Driver Program to test above functions 
  C program to demonstrate insert operation in binary search tree 
@@ -193,7 +198,7 @@ static struct node *insert( struct node* node, int key )
 
 static int bst_initialize(void)
 {
-// Inicializa árvore binária.
+// Inicializa ï¿½rvore binï¿½ria.
 
     buffer_offset = 0;
     struct node *root = NULL; 
@@ -209,20 +214,20 @@ static int bst_initialize(void)
     printf ("for\n");
 
 // #IMPORTANTE:
-// ESSE É O BUFFER USADO PARA COLOCAR A EXPRESSÃO EM ORDEM 
+// ESSE ï¿½ O BUFFER USADO PARA COLOCAR A EXPRESSï¿½O EM ORDEM 
 // VAMOS FAZER ELE GLOBAL PARA SER PREENCHIDO PELOS TOKENS.
     //int exp[] = { 4, '+', 3, '-', 2, '*', 5, '?' };
 
 // Colocamos nos buffers em ordem.
     for ( 
         i=0; 
-        (c = exp_buffer[i]) != '?';  // Se ainda não chegou ao fim.
+        (c = exp_buffer[i]) != '?';  // Se ainda nï¿½o chegou ao fim.
         i++ )
     {
         // Numbers
         if ( c >= 0 && c <= 9 ){
             //printf(">");  //#debug
-            // dígito
+            // dï¿½gito
             buffer1[buffer1_offset] = (int) c;
             buffer1_offset++; 
         // Operators
@@ -243,7 +248,7 @@ static int bst_initialize(void)
 // ===================================================================
 // #todo: 
 // NESSA HORA TEM QUE AJUSTAR A 
-// PRECEDÊNCIA DOS OPERADORES
+// PRECEDï¿½NCIA DOS OPERADORES
 
 // Inserindo root.
     root = insert(root,'?'); 
@@ -263,7 +268,7 @@ static int bst_initialize(void)
         insert(root,buffer2[i]);
     };
 
-// Ajustando para o último válido.
+// Ajustando para o ï¿½ltimo vï¿½lido.
     buffer1_offset--; 
 
     //for ( i=0; (c = buffer1[i]) != '?'; i++ )
@@ -284,17 +289,17 @@ static int bst_initialize(void)
     };
 
 // #OK 
-// Nos buffers estão na mesma ordem que na expressão.
+// Nos buffers estï¿½o na mesma ordem que na expressï¿½o.
 // agora vamos inserir na ordem inversa dos buffers.
 
 // ### root ##
 //insert 111. 
-// É um finalizador, representa o igual
+// ï¿½ um finalizador, representa o igual
 //depois vamos usar o igual =
 // x = 4+3 - 2*5
 
 	//root = insert ( root, '?' ); 	
-	//os operadores precisar sem inseridos na ordem da expressão.
+	//os operadores precisar sem inseridos na ordem da expressï¿½o.
 	//insert(root, '+'); //
 	//insert(root, '-'); //
 	//insert(root, '*'); //
@@ -414,9 +419,9 @@ static int eval(int *str)
         if ( c>='0' && c<='9' ){
             push( &stk, (int)( c - '0' ) );
         // Quando encontrar um operador, Faz push do result.
-        // O problema é a ordem em que os operandos aparecem 
-        // o último é a raiz.
-        // e aqui a o operando raiz aparece no meio da expressão.
+        // O problema ï¿½ a ordem em que os operandos aparecem 
+        // o ï¿½ltimo ï¿½ a raiz.
+        // e aqui a o operando raiz aparece no meio da expressï¿½o.
         }else{
             opnd2 = pop(&stk);
             opnd1 = pop(&stk);
@@ -426,31 +431,31 @@ static int eval(int *str)
         }
     }
 
-// O resultado é o que sobrou na pilha.
+// O resultado ï¿½ o que sobrou na pilha.
     return ( pop(&stk) );
 }
 
 // tree_eval:
-// Calcula a expressão e retorna o valor.
+// Calcula a expressï¿½o e retorna o valor.
 // #todo:
-// prepara o buffer contendo a expressão em ordem. 
+// prepara o buffer contendo a expressï¿½o em ordem. 
 // pra isso precisamos pegar os tokens e colocar no buffer. 
 // #exemplo
 // tem que pegar os tokens e colocar assim no buffer.
-// +os números são números mesmo 
-// +os operadores são chars ou strings.
+// +os nï¿½meros sï¿½o nï¿½meros mesmo 
+// +os operadores sï¿½o chars ou strings.
 // tem que finalizar com '?'
 // exp[] = { 4, '+', 3, '-', 2, '*', 5, '?' };
 // #todo
-// vamos copiar a função no parser que pega os tokens de expressões.
-// mas por enquanto só os operadores básicos.
+// vamos copiar a funï¿½ï¿½o no parser que pega os tokens de expressï¿½es.
+// mas por enquanto sï¿½ os operadores bï¿½sicos.
 
 unsigned long tree_eval(void)
 {
 // Global function.
-// Pegamos os próximos tokens e colocamos no buffer exp_buffer[].
-// Initializa a árvore binária chamando bst_initialize(),
-// os dados são transferidos para o buffer POS_BUFFER[].
+// Pegamos os prï¿½ximos tokens e colocamos no buffer exp_buffer[].
+// Initializa a ï¿½rvore binï¿½ria chamando bst_initialize(),
+// os dados sï¿½o transferidos para o buffer POS_BUFFER[].
 // Calcula o resultado chamando eval();
 
     int running = 1;
@@ -488,17 +493,17 @@ unsigned long tree_eval(void)
     case 1:
         switch (c){
 
-        // Constants: Números ou separadores.
+        // Constants: Nï¿½meros ou separadores.
         case TK_CONSTANT:
             exp_buffer[exp_offset] = (int) atoi(real_token_buffer);
             exp_offset++;
-            // Depois de um número espera-se 
+            // Depois de um nï¿½mero espera-se 
             // um operador ou um separador.
             State=2; 
             break;
 
         // ';' separador no caso de return void.
-        // para quando a expressão é depois do return.
+        // para quando a expressï¿½o ï¿½ depois do return.
         case TK_SEPARATOR:
             if ( strncmp( (char *) real_token_buffer, ";", 1 ) == 0  )
             {
@@ -530,14 +535,14 @@ unsigned long tree_eval(void)
             exp_buffer[exp_offset] = (int) c;
             exp_offset++;
             // Depois do operador esperamos 
-            // um número ou um separador ')' ou 
-            // finalizador provisório?.
+            // um nï¿½mero ou um separador ')' ou 
+            // finalizador provisï¿½rio?.
             State=1; 
             break;
 
         // Separators
-        // ')' provisório para terminar a expressão,
-        // daí incluimos o finalizador provisório '?'
+        // ')' provisï¿½rio para terminar a expressï¿½o,
+        // daï¿½ incluimos o finalizador provisï¿½rio '?'
         case TK_SEPARATOR:
             // ')'
             if ( strncmp( (char *) real_token_buffer, ")", 1 ) == 0  )
@@ -589,8 +594,8 @@ do_bst:
     //while(1){}    
 
 //==================================================
-// Inicializa árvore binária.
-// ela pega uma expressão que está em um buffer e 
+// Inicializa ï¿½rvore binï¿½ria.
+// ela pega uma expressï¿½o que estï¿½ em um buffer e 
 // prepara o buffer POS_BUFFER para eval usar.
 
     bst_initialize(); 

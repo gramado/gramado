@@ -3,7 +3,8 @@
 // Inspired on gcc 0.9.
 // 2018 - Created by Fred Nora.
 
-#include "gramcnf.h"
+#include "../gramcnf.h"
+#include "lexer.h"
 
 // ## current ##
 // Usado pelo lexer pra saber qual lugar na lista 

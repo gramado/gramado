@@ -1,10 +1,10 @@
-/*
- * File: parser.c
- * 2018 - Created by Fred Nora.
- */
+// parser.c
+// 2018 - Created by Fred Nora.
 
+#include "../gramcnf.h"
+#include "parser.h"
+#include "../model/lexer.h"
 
-#include "gramcnf.h"
 
 //struct function_d  *function_main;
 

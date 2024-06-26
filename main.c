@@ -8,7 +8,8 @@
 #include <fcntl.h>
 
 #include "gramcnf.h"
-
+#include "model/lexer.h"
+#include "model/parser.h"
 
 // see: parser.h
 struct program_d  program;

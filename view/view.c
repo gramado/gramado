@@ -9,6 +9,9 @@
 #include "../gramcnf.h"
 #include "view.h"
 
+#include "../model/lexer.h"
+
+
 static int CreateAppFile2(void);
 static void debugShowStat2(void);
 

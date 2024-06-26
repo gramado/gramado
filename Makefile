@@ -11,10 +11,10 @@ all:
 # View
 	gcc -c view/view.c     -o view.o
 # Model
-	gcc -c compiler.c -o compiler.o
-	gcc -c lexer.c    -o lexer.o
-	gcc -c parser.c   -o parser.o
-	gcc -c tree.c     -o tree.o
+	gcc -c model/compiler.c -o compiler.o
+	gcc -c model/lexer.c    -o lexer.o
+	gcc -c model/parser.c   -o parser.o
+	gcc -c model/tree.c     -o tree.o
 
 # Link
 	gcc -Wall -o mt main.o globals.o view.o compiler.o lexer.o parser.o tree.o 

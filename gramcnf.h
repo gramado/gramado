@@ -27,12 +27,5 @@
 #include "debug.h"
 #include "globals.h"
 #include "gdef.h"
-#include "token.h"
-#include "lexer.h"
-#include "parser.h"
-#include "tree.h" 
-#include "compiler.h" 
-
-
-
+#include "model/token.h"
 
