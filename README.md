@@ -1,4 +1,4 @@
-# mt
+# gramado
 
 ```
   Gramado interpreter for Linux.
