@@ -1,13 +1,16 @@
 # This file will be copyed to build/
 
+
+appName = myapp
+
 all:
-	./mt -s THEME1.CNF --stats 
+	./gramado -s THEME1.CNF --stats 
 
 # Build the app directory.
-	-mkdir myapp
-	-cp gramado.css  myapp/
-	-cp gramado.js   myapp/
-	-cp index.html   myapp/
+	-mkdir $(appName)
+	-cp gramado.css  $(appName)/
+	-cp gramado.js   $(appName)/
+	-cp index.html   $(appName)/
 
 #clean:
 #

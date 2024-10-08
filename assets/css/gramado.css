@@ -39,7 +39,6 @@ html, body {
     margin: 0;
     padding: 0;
     background-color: #F2EFEF;
-    /*background-color: #000000;*/
 }
 h1,h2,h3,h4,h5,h6 {
     margin: 0;
@@ -54,13 +53,13 @@ a:hover {
 
 
 /* 
- * Small screen:
+ * Small screen: ------------------------------
  * Mobile first?
  */
 
-/* navigation bar for small screens */
+/* Navigation bar for small screens */
 .gramado-nav {
-    font-size: 4.0vw;
+    font-size: 4.5vw;
     border-top: 2px solid rgba(88, 88, 88, .3);
     border-bottom: 2px solid rgba(129, 129, 129, .3);
 }
@@ -86,21 +85,28 @@ a:hover {
 }
 
 .gramado-container {
+    font-size: 4.4vw;
     text-align: center;
 }
 
 .gramado-header{
+    font-size: 3.5vw;
+    color: #202020;
     text-align: center;
     text-transform: uppercase;
-    color: #C0C0C0;
+}
+.gramado-header-image {
+    text-align: center;
+    width: 11%;
+    height: auto;
 }
 
 .gramado-text{
-    font-size: 2.0vw;
+    font-size: 3.5vw;
 }
 
 .gramado-image {
-    width: 75%;
+    width: 96%;
     height: auto;
 }
 .gramado-image-container {
@@ -109,6 +115,7 @@ a:hover {
 }
 
 .gramado-button {
+    font-size: 4.5vw;
     text-align: center;
     color: #fff;
     background-color: #007bff;
@@ -133,7 +140,7 @@ a:hover {
 }
 
 .gramado-footer {
-    font-size: 1.5vw;
+    font-size: 3.5vw;
     text-align: center;
     color: #808080;
     padding-bottom: 2%;
@@ -151,7 +158,7 @@ a:hover {
 
 /* navigation bar for large screens */
 .gramado-nav {
-    font-size: 2.0vw;
+    font-size: 2.2vw;
     border-top: 2px solid rgba(80, 80, 80, .3);
     border-bottom: 2px solid rgba(123, 123, 123, .3);
 }
@@ -174,16 +181,28 @@ a:hover {
     background-color: rgba(200, 200, 200, .6); 
 }
 
+.gramado-container {
+    font-size: 4.0vw;
+    text-align: center;
+}
+
 .gramado-header{
-    font-size: 1.0vw;
+    font-size: 1.8vw;
     color: #202020;
 }
+.gramado-header-image {
+    text-align: center;
+    width: 11%;
+    height: auto;
+}
+
 .gramado-text{
-    font-size: 0.9vw;
+    font-size: 2.2vw;
+    color: #202020;
 }
 
 .gramado-image {
-    width: 75%;
+    width: 50%;
     height: auto;
 }
 .gramado-image-container {
@@ -192,6 +211,7 @@ a:hover {
 }
 
 .gramado-button {
+    font-size: 2.2vw;
     text-align: center;
     color: #fff;
     background-color: #007bff;
@@ -216,7 +236,7 @@ a:hover {
 }
 
 .gramado-footer {
-    font-size: 0.8vw;
+    font-size: 1.4vw;
     text-align: center;
     color: #808080;
     padding-bottom: 2%;

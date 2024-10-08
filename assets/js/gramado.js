@@ -54,6 +54,10 @@ function gramadoHelloWorld(){
     return __gramado_status;
 }
 
+function gramadoVisitGramadoOnGithub(){
+    window.open("https://github.com/gramado");
+}
+
 // ---------------------------------------
 
 /* Learning ... */

@@ -1,7 +1,11 @@
-# Mount tabor for Linux
+# Create the interpreter for the gramado language.
 # Usage:
-# $ ./mt -s THEME1.CNF --stats 
+# $ ./gramado -s THEME1.CNF --stats 
 # Created by Fred Nora.
+
+linkTarget = gramado
+
+Objects = main.o globals.o view.o compiler.o lexer.o parser.o tree.o 
 
 all:
 
@@ -17,11 +21,12 @@ all:
 	gcc -c model/tree.c     -o tree.o
 
 # Link
-	gcc -Wall -o mt main.o globals.o view.o compiler.o lexer.o parser.o tree.o 
+# Create the 'gramado' executable.
+	gcc -Wall -o $(linkTarget) $(Objects) 
 
 # Build the final destination.
 	-mkdir build/
-	-cp ./mt                           build/
+	-cp ./$(linkTarget)                build/
 	-cp ./assets/css/gramado.css       build/ 
 	-cp ./assets/js/gramado.js         build/
 	-cp ./assets/examples/THEME1.CNF   build/
@@ -33,7 +38,10 @@ all:
 	@echo "Go to build/ folder and type make";
 clean:
 	-rm *.o  
-	-rm ./mt 
+	-rm ./gramado 
 	-rm -rf build
-
+clean-all:
+	-rm *.o  
+	-rm ./gramado 
+	-rm -rf build
 
