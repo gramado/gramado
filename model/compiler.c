@@ -1,4 +1,3 @@
-
 // compiler.c 
 // Aqui ficará o compilador, 
 // que transformará a linguagem intermediária em assembly.

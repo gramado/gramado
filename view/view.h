@@ -1,4 +1,3 @@
-
 // view.h
 // Created by Fred Nora.
 

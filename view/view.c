@@ -1,4 +1,3 @@
-
 // view.c
 // Let's create a presentation for the metadata[] structure.
 // Created by Fred Nora.
@@ -13,7 +12,7 @@
 
 
 static int CreateAppFile2(void);
-static void debugShowStat2(void);
+static int debugShowStat2(void);
 
 
 static int CreateAppFile2(void)
@@ -34,9 +33,10 @@ static int CreateAppFile2(void)
 
 
 // Mostra as estatísticas para o desenvolvedor.
-static void debugShowStat2(void)
+static int debugShowStat2(void)
 {
     register int i=0;
+    int MetadataMaxIndex = 32;
 
     printf("\n");
     printf("debugShowStat\n");
@@ -74,12 +74,17 @@ static void debugShowStat2(void)
 
     if (fd == -1){
         printf("Couldn't create index.html\n");
-        return -1;
+        goto fail;
     }
 
-    // Open::
+// --------------
+// Open::
     strcat(TmpString, "<!DOCTYPE html>\n");
+    
+    // html
     strcat(TmpString, "<html leng=\"en\">\n");
+
+    // head
     strcat(TmpString, "<head>\n");
     strcat(TmpString, "<meta charset=\"UTF-8\">\n");
     strcat(TmpString,"<meta name=\"generator\" content=\"mt interpreter\">\n");
@@ -87,10 +92,12 @@ static void debugShowStat2(void)
     strcat(TmpString, "<title>index.html</title>\n");
     strcat(TmpString, "<link href=\"gramado.css\" rel=\"stylesheet\" >\n");
     strcat(TmpString, "</head>\n");
+    
+    // body
     strcat(TmpString, "<body>\n");
 
 // Metadata
-    for (i=0; i<32; i++)
+    for (i=0; i<MetadataMaxIndex; i++)
     {
         if (metadata[i].initialized == TRUE)
         {
@@ -149,15 +156,20 @@ static void debugShowStat2(void)
         }
     };
 
-    // Close::
     strcat(TmpString, "</body>\n");
     strcat(TmpString, "</html>\n");
 
+// -----------
+// Close::
     write(fd, TmpString, 1027);
     close(fd);
 
     printf("\n");
     printf("==========================================\n");
+
+    return 0;
+fail:
+    return (int) -1;
 }
 
 

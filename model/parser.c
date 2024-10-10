@@ -2533,6 +2533,12 @@ static int __parserInit(void)
     return 0;
 }
 
+
+//
+// $
+// INITIALIZATION
+//
+
 // Called by compiler().
 int parser_initialize(void)
 {

@@ -1,8 +1,6 @@
-
 // main.c
-// GRAMCNF.BIN - c-like interpreter.
-// Ported from Gramado 32bit.
-// 2022 - Fred Nora
+// ./gramado - c-like interpreter.
+// Created by Fred Nora.
 
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -13,7 +11,6 @@
 
 // see: parser.h
 struct program_d  program;
-
 
 const char *VersionString = "1.0";
 
@@ -36,7 +33,7 @@ int no_output=0;
 // =====================================================
 static void doUsage(char **argv);
 static void doVersion(char **argv);
-static int gramcnf_initialize(void);
+static int gramado_initialize(void);
 // =====================================================
 
 static void doUsage(char **argv)
@@ -61,14 +58,14 @@ int is_letter(char c)
 }
 */
 
-// gramcnf_initialize:
+// gramado_initialize:
 // Initialize global variables.
-static int gramcnf_initialize(void)
+static int gramado_initialize(void)
 {
     int Status = 0;
     register int i=0;
 
-    //printf ("gramcnf_initialize:\n");
+    //printf ("gramado_initialize:\n");
 
 // Clear buffers
 
@@ -185,8 +182,8 @@ int main(int argc, char *argv[])
     //printf ("\n");
     //printf ("main: Initializing ..\n");
 
-// Inicializa variáveis globais.
-    gramcnf_initialize();
+// Initialize global variables.
+    gramado_initialize();
 
     //printf ("*breakpoint");
     //while (1){}
