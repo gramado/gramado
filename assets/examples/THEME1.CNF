@@ -5,7 +5,9 @@ box One
     meta i_01(){ name("section");  content("Section 1");     }
     meta i_02(){ name("section");  content("Section 2");     }
     meta i_03(){ name("article");  content("This is an article");  }
-    meta i_04(){ name("footer");   content("My footer");     }
-] 
+    meta i_04(){ name("legend");   content("This is a legend");    }
+    meta i_05(){ name("footer");   content("Footer");              }
 
+    /* meta i_06(){ name("open"); content("THEME1.CNF");  } */
+] 
 

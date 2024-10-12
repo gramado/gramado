@@ -38,6 +38,11 @@ static int debugShowStat2(void)
     register int i=0;
     int MetadataMaxIndex = 32;
 
+    FILE *fp; // for "open" tag.
+    int C;  // byte from file
+    char FileBuffer[1028];
+    int counter=0;
+
     printf("\n");
     printf("debugShowStat\n");
 
@@ -168,6 +173,40 @@ static int debugShowStat2(void)
                     strcat(TmpString, "</div>\n");
                 }
                 strcat(TmpString, "</footer>\n");
+            }
+
+            // open
+            if ( strncmp( metadata[i].name, "open", 4) == 0 )
+            {
+                if (sizeof(metadata[i].content) < 1028)
+                {
+                    fp = fopen((char *) metadata[i].content, "rb");
+                    if ((void*) fp != NULL)
+                    {
+                        counter=0;
+                        memset(FileBuffer,0,1028);
+                        while (1)
+                        {
+                            if (counter >= 64)
+                                break;
+
+                            C = (int) getc(fp);
+                            if (C == EOF)
+                                break;
+                            if (C == 0)
+                                break;
+                            
+                            FileBuffer[counter] = (char) C;
+                            counter++;
+                        };
+                        
+                        // #bugbug: Buffer overflow
+                        // The One big buffer inside a small buffer.
+                        strcat(TmpString, FileBuffer);
+                        fclose(fp);
+                        fp = NULL;
+                    }
+                }
             }
         }
     };
