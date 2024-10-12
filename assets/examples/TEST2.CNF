@@ -1,0 +1,14 @@
+
+box One 
+[
+    meta i_00(){ name("dom");      content("normal");        }
+    meta i_01(){ name("header");   content("Hello world!");  }
+    meta i_02(){ name("section");  content("Section 1");     }
+    meta i_03(){ name("section");  content("Section 2");     }
+    meta i_04(){ name("footer");   content("My footer");     }
+] 
+
+
+
+
+

@@ -234,12 +234,9 @@ static int parse_function(int token)
     return 0;
 }
 
-// Parse asm statement.
+// Parse name("") statement.
 static int parse_name(int token)
 {
-// #todo:
-// "asm" pode virar um visualizador de strings.
-
     int c=0;
     int running = 1;
     int State = 1;
@@ -276,7 +273,7 @@ static int parse_name(int token)
     }
 
 //
-// String?
+// The string.
 // " .... "
 //
 
@@ -312,6 +309,7 @@ static int parse_name(int token)
                 printf("string size max\n");
                 goto error0;
             }
+            // Metadata
             memset(metadata[meta_index].name, 0, 64);
             strncpy(
                 metadata[meta_index].name,
@@ -319,32 +317,33 @@ static int parse_name(int token)
                 string_size );
             metadata[meta_index].name_size = string_size;
             
-            // Next stage.
+            // Next stage
             meta_stage++;
         }
 
         // Coloca a string no arquivo de saída.
         strcat( outfile, real_token_buffer );
-        // Ao fim da string vamos para a próxima linha do output file
+        // Ao fim da string vamos para a próxima linha do output file.
         strcat( outfile,"\n");
 
+        // )
         c = yylex();
-
-        //)
         if ( strncmp( (char *) real_token_buffer, ")", 1 ) == 0 )
         {
             inside = 0;
-            c = yylex();
+            
             // ;
+            c = yylex();
             if ( strncmp( (char *) real_token_buffer, ";", 1 ) == 0 )
             {
-                // ok
                 return (int) c;
             }
+            // Fail
             printf("parse_name: expected ; in name string\n");
             exit(1);
         }
-
+        
+        // Fail
         printf("parse_name: expected ) in name string\n");
         exit(1);
     }
@@ -356,11 +355,9 @@ error0:
 }
 
 
-// Parse asm statement.
+// Parse content("") statement.
 static int parse_content(int token)
 {
-// #todo:
-// "asm" pode virar um visualizador de strings.
 
     int c=0;
     int running = 1;

@@ -92,7 +92,7 @@ static int debugShowStat2(void)
     strcat(TmpString, "<title>index.html</title>\n");
     strcat(TmpString, "<link href=\"gramado.css\" rel=\"stylesheet\" >\n");
     strcat(TmpString, "</head>\n");
-    
+
     // body
     strcat(TmpString, "<body>\n");
 
@@ -113,29 +113,45 @@ static int debugShowStat2(void)
             // header
             if ( strncmp( metadata[i].name, "header", 6) == 0 )
             {
+                strcat(TmpString, "<br>\n");
+                strcat(TmpString, "<header>\n");
                 if (sizeof(metadata[i].content) < 1028)
                 {
-                    strcat(TmpString, "<br>\n");
-                    strcat(TmpString, "<header>\n");
                     strcat(TmpString, "<div class=\"gramado-header\">\n");
                     strcat(TmpString, metadata[i].content);
                     strcat(TmpString, "</div>\n");
-                    strcat(TmpString, "</header>\n");
                 }
+                strcat(TmpString, "</header>\n");
+            }
+
+            // article
+            if ( strncmp( metadata[i].name, "article", 7) == 0 )
+            {
+                strcat(TmpString, "<br>\n");
+                strcat(TmpString, "<article>\n");
+                if (sizeof(metadata[i].content) < 1028)
+                {
+                    strcat(TmpString, "<div class=\"gramado-container\">\n");
+                    strcat(TmpString, "<p>\n");
+                    strcat(TmpString, metadata[i].content);
+                    strcat(TmpString, "</p>\n");
+                    strcat(TmpString, "</div>\n");
+                }
+                strcat(TmpString, "</article>\n");
             }
 
             // section
             if ( strncmp( metadata[i].name, "section", 7) == 0 )
             {
+                strcat(TmpString, "<br>\n");
+                strcat(TmpString, "<section>\n");
                 if (sizeof(metadata[i].content) < 1028)
                 {
-                    strcat(TmpString, "<br>\n");
-                    strcat(TmpString, "<section>\n");
                     strcat(TmpString, "<div class=\"gramado-container\">\n");
                     strcat(TmpString, metadata[i].content);
                     strcat(TmpString, "</div>\n");
-                    strcat(TmpString, "</section>\n");
                 }
+                strcat(TmpString, "</section>\n");
             }
 
             // ...  #todo
@@ -143,15 +159,15 @@ static int debugShowStat2(void)
             // footer
             if ( strncmp( metadata[i].name, "footer", 6) == 0 )
             {
+                strcat(TmpString, "<br>\n");
+                strcat(TmpString, "<footer>\n");
                 if (sizeof(metadata[i].content) < 1028)
                 {
-                    strcat(TmpString, "<br>\n");
-                    strcat(TmpString, "<footer>\n");
                     strcat(TmpString, "<div class=\"gramado-footer\">\n");
                     strcat(TmpString, metadata[i].content);
                     strcat(TmpString, "</div>\n");
-                    strcat(TmpString, "</footer>\n");
                 }
+                strcat(TmpString, "</footer>\n");
             }
         }
     };
