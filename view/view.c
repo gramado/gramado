@@ -72,9 +72,10 @@ static int debugShowStat2(void)
 // #test
 // Creating the final .html file for own application.
     int fd = (int) CreateAppFile2();
-    char TmpString[1028];
+    //char TmpString[1028];
+    char TmpString[4096];
 
-    for (i=0; i<1028; i++)
+    for (i=0; i<4096; i++)
         TmpString[i] = (char) 0;    
 
     if (fd == -1){
