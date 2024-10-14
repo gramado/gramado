@@ -4,7 +4,8 @@
 #ifndef __VIEW_H
 #define __VIEW_H  1
 
-int viewGenerateOutputHTML(void);
+int viewPrintStats(void);
+int viewGenerateOutputFile(void);
 
 #endif   
 

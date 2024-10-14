@@ -11,9 +11,20 @@
 #include "../model/lexer.h"
 
 
-static int CreateAppFile2(void);
-static int debugShowStat2(void);
+// The buffer for the final html file.
+static char html_buffer[4096];
+//char *pt_html_buffer;
 
+//
+// ========================================
+//
+
+static int CreateAppFile2(void);
+static int __generate_html_output_file(void);
+
+//
+// ========================================
+//
 
 static int CreateAppFile2(void)
 {
@@ -31,9 +42,8 @@ static int CreateAppFile2(void)
     return -1;
 }
 
-
-// Mostra as estatísticas para o desenvolvedor.
-static int debugShowStat2(void)
+// Generate a html output file baseed on the metadata structure.
+static int __generate_html_output_file(void)
 {
     register int i=0;
     int MetadataMaxIndex = 32;
@@ -44,63 +54,39 @@ static int debugShowStat2(void)
     int counter=0;
 
     printf("\n");
-    printf("debugShowStat\n");
-
-// -------------------------
-// Lexer
     printf("==========================================\n");
-    printf("== Lexer info ==\n");
-    printf("number of lines: {%d}\n",lexer_number_of_lines);
-    printf("first line:      {%d}\n",lexer_firstline);
-    printf("last line:       {%d}\n",lexer_lastline);
-    printf("current line:    {%d}\n",lexer_currentline);  // The number of lines.
-    printf("token count:     {%d}\n",lexer_token_count);
-	// ...
+    printf("Generate the html file\n");
 
-// -------------------------
-// Parser
-    printf("==========================================\n");
-    printf("== Parser info ==\n");
-    printf("infile_size:     {%d bytes}\n",infile_size);
-    printf("outfile_size:    {%d bytes}\n",outfile_size);
-	// ...
-
-    printf("\n");
-    printf("==========================================\n");
-    printf("Printing metadata structure. :)\n");
-
-// #test
+// --------------
 // Creating the final .html file for own application.
     int fd = (int) CreateAppFile2();
-    //char TmpString[1028];
-    char TmpString[4096];
-
-    for (i=0; i<4096; i++)
-        TmpString[i] = (char) 0;    
-
     if (fd == -1){
         printf("Couldn't create index.html\n");
         goto fail;
     }
 
 // --------------
+    for (i=0; i<4096; i++)
+        html_buffer[i] = (char) 0;    
+
+// --------------
 // Open::
-    strcat(TmpString, "<!DOCTYPE html>\n");
+    strcat(html_buffer, "<!DOCTYPE html>\n");
     
     // html
-    strcat(TmpString, "<html leng=\"en\">\n");
+    strcat(html_buffer, "<html leng=\"en\">\n");
 
     // head
-    strcat(TmpString, "<head>\n");
-    strcat(TmpString, "<meta charset=\"UTF-8\">\n");
-    strcat(TmpString,"<meta name=\"generator\" content=\"mt interpreter\">\n");
-    strcat(TmpString, "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n");
-    strcat(TmpString, "<title>index.html</title>\n");
-    strcat(TmpString, "<link href=\"gramado.css\" rel=\"stylesheet\" >\n");
-    strcat(TmpString, "</head>\n");
+    strcat(html_buffer, "<head>\n");
+    strcat(html_buffer, "<meta charset=\"UTF-8\">\n");
+    strcat(html_buffer,"<meta name=\"generator\" content=\"mt interpreter\">\n");
+    strcat(html_buffer, "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n");
+    strcat(html_buffer, "<title>index.html</title>\n");
+    strcat(html_buffer, "<link href=\"gramado.css\" rel=\"stylesheet\" >\n");
+    strcat(html_buffer, "</head>\n");
 
     // body
-    strcat(TmpString, "<body>\n");
+    strcat(html_buffer, "<body>\n");
 
 // Metadata
     for (i=0; i<MetadataMaxIndex; i++)
@@ -119,45 +105,45 @@ static int debugShowStat2(void)
             // header
             if ( strncmp( metadata[i].name, "header", 6) == 0 )
             {
-                strcat(TmpString, "<br>\n");
-                strcat(TmpString, "<header>\n");
+                strcat(html_buffer, "<br>\n");
+                strcat(html_buffer, "<header>\n");
                 if (sizeof(metadata[i].content) < 1028)
                 {
-                    strcat(TmpString, "<div class=\"gramado-header\">\n");
-                    strcat(TmpString, metadata[i].content);
-                    strcat(TmpString, "</div>\n");
+                    strcat(html_buffer, "<div class=\"gramado-header\">\n");
+                    strcat(html_buffer, metadata[i].content);
+                    strcat(html_buffer, "</div>\n");
                 }
-                strcat(TmpString, "</header>\n");
+                strcat(html_buffer, "</header>\n");
             }
 
             // article
             if ( strncmp( metadata[i].name, "article", 7) == 0 )
             {
-                strcat(TmpString, "<br>\n");
-                strcat(TmpString, "<article>\n");
+                strcat(html_buffer, "<br>\n");
+                strcat(html_buffer, "<article>\n");
                 if (sizeof(metadata[i].content) < 1028)
                 {
-                    strcat(TmpString, "<div class=\"gramado-container\">\n");
-                    strcat(TmpString, "<p>\n");
-                    strcat(TmpString, metadata[i].content);
-                    strcat(TmpString, "</p>\n");
-                    strcat(TmpString, "</div>\n");
+                    strcat(html_buffer, "<div class=\"gramado-container\">\n");
+                    strcat(html_buffer, "<p>\n");
+                    strcat(html_buffer, metadata[i].content);
+                    strcat(html_buffer, "</p>\n");
+                    strcat(html_buffer, "</div>\n");
                 }
-                strcat(TmpString, "</article>\n");
+                strcat(html_buffer, "</article>\n");
             }
 
             // section
             if ( strncmp( metadata[i].name, "section", 7) == 0 )
             {
-                strcat(TmpString, "<br>\n");
-                strcat(TmpString, "<section>\n");
+                strcat(html_buffer, "<br>\n");
+                strcat(html_buffer, "<section>\n");
                 if (sizeof(metadata[i].content) < 1028)
                 {
-                    strcat(TmpString, "<div class=\"gramado-container\">\n");
-                    strcat(TmpString, metadata[i].content);
-                    strcat(TmpString, "</div>\n");
+                    strcat(html_buffer, "<div class=\"gramado-container\">\n");
+                    strcat(html_buffer, metadata[i].content);
+                    strcat(html_buffer, "</div>\n");
                 }
-                strcat(TmpString, "</section>\n");
+                strcat(html_buffer, "</section>\n");
             }
 
             // ...  #todo
@@ -165,15 +151,15 @@ static int debugShowStat2(void)
             // footer
             if ( strncmp( metadata[i].name, "footer", 6) == 0 )
             {
-                strcat(TmpString, "<br>\n");
-                strcat(TmpString, "<footer>\n");
+                strcat(html_buffer, "<br>\n");
+                strcat(html_buffer, "<footer>\n");
                 if (sizeof(metadata[i].content) < 1028)
                 {
-                    strcat(TmpString, "<div class=\"gramado-footer\">\n");
-                    strcat(TmpString, metadata[i].content);
-                    strcat(TmpString, "</div>\n");
+                    strcat(html_buffer, "<div class=\"gramado-footer\">\n");
+                    strcat(html_buffer, metadata[i].content);
+                    strcat(html_buffer, "</div>\n");
                 }
-                strcat(TmpString, "</footer>\n");
+                strcat(html_buffer, "</footer>\n");
             }
 
             // open
@@ -203,7 +189,7 @@ static int debugShowStat2(void)
                         
                         // #bugbug: Buffer overflow
                         // The One big buffer inside a small buffer.
-                        strcat(TmpString, FileBuffer);
+                        strcat(html_buffer, FileBuffer);
                         fclose(fp);
                         fp = NULL;
                     }
@@ -212,12 +198,12 @@ static int debugShowStat2(void)
         }
     };
 
-    strcat(TmpString, "</body>\n");
-    strcat(TmpString, "</html>\n");
+    strcat(html_buffer, "</body>\n");
+    strcat(html_buffer, "</html>\n");
 
 // -----------
 // Close::
-    write(fd, TmpString, 1027);
+    write(fd, html_buffer, 1027);
     close(fd);
 
     printf("\n");
@@ -228,11 +214,63 @@ fail:
     return (int) -1;
 }
 
+int viewPrintStats(void)
+{
+    printf("\n");
+    printf("debugShowStat\n");
+
+// -------------------------
+// Lexer
+    printf("==========================================\n");
+    printf("== Lexer info ==\n");
+    printf("number of lines: {%d}\n",lexer_number_of_lines);
+    printf("first line:      {%d}\n",lexer_firstline);
+    printf("last line:       {%d}\n",lexer_lastline);
+    printf("current line:    {%d}\n",lexer_currentline);  // The number of lines.
+    printf("token count:     {%d}\n",lexer_token_count);
+    // ...
+
+// -------------------------
+// Parser
+    printf("==========================================\n");
+    printf("== Parser info ==\n");
+    printf("infile_size:     {%d bytes}\n",infile_size);
+    printf("outfile_size:    {%d bytes}\n",outfile_size);
+	// ...
+
+    return 0;
+}
+
 
 // Called by main.c
-int viewGenerateOutputHTML(void)
+int viewGenerateOutputFile(void)
 {
-    debugShowStat2();
+
+//
+// Select the type of output file.
+//
+
+    //#todo: Get this info from the user.
+    int output_type = 1;
+
+    // html
+    if (output_type == 1){
+        __generate_html_output_file();
+    
+    // #todo: 
+    // We can create more options and more workers.
+
+    // ?
+    } else if (output_type == 2){
+        printf("Invalid output_type\n");
+        exit(1);
+    
+    // ...
+    }else{
+        printf("Invalid output_type\n");
+        exit(1);
+    };
+
     return 0;
 }
 

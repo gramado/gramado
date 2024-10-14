@@ -309,11 +309,15 @@ int main(int argc, char *argv[])
        //
     //}
 
-// Let's create an html file to present the metadata[] structure.
-// See: view.c
     if (fShowStats){
-        viewGenerateOutputHTML();
+        viewPrintStats();
     }
+
+// Let's create an file to present the metadata[] structure.
+// There is more then one type of output file.
+// It depends on the user.
+// See: view.c
+    viewGenerateOutputFile();
 
     printf("Done :)\n");
     return EXIT_SUCCESS;
