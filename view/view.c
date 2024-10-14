@@ -264,7 +264,7 @@ int viewGenerateOutputFile(void)
     } else if (output_type == 2){
         printf("Invalid output_type\n");
         exit(1);
-    
+
     // ...
     }else{
         printf("Invalid output_type\n");
