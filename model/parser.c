@@ -87,13 +87,11 @@ static unsigned long parse_expression(int token);
 static void emit_label(void);
 static void emit_function(void);
 
-
-static void dump_output_file(int save_file);
-
 //
 // -------------------------------------
 //
 
+// Emit label for asm output file.
 static void emit_label(void)
 {
     strcat (TEXT,";[LABEL]\n");
@@ -103,6 +101,7 @@ static void emit_label(void)
     strcat (TEXT,":\n");
 }
 
+// Emit function for asm output file.
 static void emit_function(void)
 {
     strcat (TEXT,";[FUNCTION] (\n");
@@ -1666,55 +1665,6 @@ expression_exit:
     return (unsigned long) Result;
 }
 
-// Called by parser().
-static void dump_output_file(int save_file)
-{
-// #todo 
-// We gotta brack up this routine into 
-// methods, one to fill the buffer with the desired information 
-// and another one to save the buffer into the file 
-// and save the file.
-
-    int fSaveFile = save_file;
-
-// Incluindo no arquivo de output os segmentos.
-    strcat ( outfile, TEXT );
-    strcat ( outfile, DATA );
-    strcat ( outfile, BSS );
-
-// Exibimos o arquivo de output.
-    printf ("\n");
-    printf ("--------------------------------\n");    
-    printf ("OUTPUT FILE:\n");
-    printf ("{%s}\n", outfile);
-    printf ("\n");
-    printf ("--------------------------------\n");
-
-// Saving output file.
-    FILE *fp = NULL;
-
-    if (fSaveFile == TRUE){
-        printf("dump_output_file: Saving the output file\n");	
-        // #todo:
-// #todo 
-// We gotta brack up this routine into 
-// methods, one to fill the buffer with the desired information 
-// and another one to save the buffer into the file 
-// and save the file.
-
-		/*
-		fp = fopen("output.txt" ,"a");
-        if ( (void*) fp != NULL )
-        {
-            fprintf(fp,outfile);
-		    close( fileno(fp) );
-		}
-        */		
-	}else{
-        printf("dump_output_file: Not saving the output file\n");		
-	};
-}
-
 // -------------------------
 // parse:
 // Função principal.
@@ -1995,11 +1945,12 @@ int parse(int dump_output)
 					// peekChar = ( //estamos chamando uma função
 					// peekChar = ; //estamos finalizando um goto ou um return.
 					// peekChar = , //estamos listando variáveis.
-                    
+
                     case TK_IDENTIFIER:
                         
-                        printf("State2: TK_IDENTIFIER={%s} line %d\n", real_token_buffer, lexer_currentline );    
-                        
+                        printf("State2: TK_IDENTIFIER={%s} line %d\n", 
+                            real_token_buffer, lexer_currentline );
+
                         id[ID_TOKEN] = TK_IDENTIFIER;
                         id[ID_STACK_OFFSET] = stack_index;
                         // Salva o símbolo. #isso funciona.
@@ -2386,7 +2337,7 @@ int parse(int dump_output)
                     case TK_SEPARATOR:
                         
                         // Expected: ';'
-                        if ( strncmp( (char *) real_token_buffer, ";", 1 ) == 0  ){
+                        if ( strncmp( (char *) real_token_buffer, ";", 1 ) == 0 ){
                             //ok #todo
                         }else{
                             printf ("State4: [ERROR] Expected ';' in line %d\n", 
@@ -2458,37 +2409,21 @@ debug_output:
     if (dump_output)
 	{
         // IN: save or not?
-        dump_output_file(TRUE);
-        //dump_output_file(FALSE);
+        viewDumpAsmOutputFile(TRUE);
+        //viewDumpAsmOutputFile(FALSE);
     }
-
-/*
-// Incluindo no arquivo de output os segmentos.
-    strcat ( outfile, TEXT );
-    strcat ( outfile, DATA );
-    strcat ( outfile, BSS );
-// Exibimos o arquivo de output.
-    printf ("\n");
-    printf ("--------------------------------\n");    
-    printf ("OUTPUT FILE:\n");
-    printf ("%s\n", outfile);
-    printf ("\n");
-    printf ("--------------------------------\n");
-    printf ("number of lines: %d \n", lexer_currentline );
-*/
-
-    // goto parse_exit;
 
 // OK, done!
 parse_exit:
     printf("parse: Done\n");
     return 0;
+
 syntax:
-    printf("parse: Systax error in line %d\n", 
-        lexer_currentline );
+    printf("parse: Systax error in line %d\n", lexer_currentline );
     exit(1);
+
 hang:
-    printf("parse: *hang\n");
+    printf("parse: Hang\n");
     while (1){
         asm ("pause");
     };

@@ -6,6 +6,7 @@
 
 int viewPrintStats(void);
 int viewGenerateOutputFile(void);
+void viewDumpAsmOutputFile(int save_file);
 
 #endif   
 

@@ -19,12 +19,29 @@ static char html_buffer[4096];
 // ========================================
 //
 
+static int CreateAsmFile(void);
 static int CreateAppFile2(void);
 static int __generate_html_output_file(void);
 
 //
 // ========================================
 //
+
+static int CreateAsmFile(void)
+{
+    int filedes=0;
+
+    filedes = creat( "output.asm",
+                 S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP );
+    if (filedes != -1) {
+        /* process file */
+        // close( filedes );
+        //return EXIT_SUCCESS;
+        return (int) filedes;
+    }
+
+    return -1;
+}
 
 static int CreateAppFile2(void)
 {
@@ -274,4 +291,73 @@ int viewGenerateOutputFile(void)
     return 0;
 }
 
+// Called by parser() in parser.c.
+void viewDumpAsmOutputFile(int save_file)
+{
+// #todo 
+// We gotta brack up this routine into 
+// methods, one to fill the buffer with the desired information 
+// and another one to save the buffer into the file 
+// and save the file.
+
+    int fSaveFile = save_file;
+
+// Incluindo no arquivo de output os segmentos.
+    strcat ( outfile, TEXT );
+    strcat ( outfile, DATA );
+    strcat ( outfile, BSS );
+
+// Exibimos o arquivo de output.
+    printf ("\n");
+    printf ("--------------------------------\n");    
+    printf ("OUTPUT FILE:\n");
+    printf ("{%s}\n", outfile);
+    printf ("\n");
+    printf ("--------------------------------\n");
+
+    /*
+    printf ("--------------------------------\n");
+    printf ("number of lines: %d \n", lexer_currentline );
+    */
+
+
+// -------------
+
+// --------------
+// Creating the final .html file for own application.
+    int fd = (int) CreateAsmFile();
+    if (fd == -1){
+        printf("Couldn't create output.asm\n");
+        //goto fail;
+        exit(1);
+    }
+
+// Saving output file.
+    //FILE *fp = NULL;
+
+    if (fSaveFile == TRUE)
+    {
+        printf("viewDumpAsmOutputFile: Saving the output file\n");	
+
+        // #todo:
+        // We gotta breck up this routine into methods, 
+        // one to fill the buffer with the desired information 
+        // and another one to save the buffer into the file 
+        // and save the file.
+        // Close::
+        write(fd, outfile, 1027);
+        close(fd);
+
+        //printf("breakpoint\n");
+        //exit(0);
+
+	}else{
+        printf("viewDumpAsmOutputFile: Not saving the output file\n");		
+	};
+
+    return;
+
+fail:
+    return;
+}
 
